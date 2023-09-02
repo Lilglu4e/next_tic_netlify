@@ -18,7 +18,7 @@ export default function Home() {
 
 	const [playerOne, setPlayerOneBoard] = useState(Array(9).fill(null))
 	const [playerTwo, setPlayerTwoBoard] = useState(Array(9).fill(null))
-	const [sessionID, setSessionID] = useState("000000");
+	const [sessionID, setSessionID] = useState(cotl.sessionIDGenerator());
 	const [playerXPlaying, setPlayerxPlayer] = useState(true)
 	const [die, setDie] = useState(0)
 	const [userName, setUserName] = useState("0")
