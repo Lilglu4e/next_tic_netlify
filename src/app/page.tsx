@@ -47,7 +47,51 @@ export default function Home() {
 	};
 
 
+	const rotateDice = () => {
+		const styles: CSSStyleDeclaration = getComputedStyle(document.body);
 
+		// This section is only to make sure you select the whole dice
+		const diceElement = document.getElementsByClassName("dice")[0] as HTMLElement | null;
+
+		if (diceElement) {
+			diceElement.classList.toggle('random-rotation');
+			setTimeout(function () {
+				diceElement.classList.remove('random-rotation');
+			}, 1500);
+
+			// Targeted side
+			var facingSide = die;
+			var transform = null;
+
+			switch (facingSide) {
+				case 1:
+					transform = styles.getPropertyValue('--dice-face-one');
+					break;
+				case 2:
+					transform = styles.getPropertyValue('--dice-face-two');
+					break;
+				case 3:
+					transform = styles.getPropertyValue('--dice-face-three');
+					break;
+				case 4:
+					transform = styles.getPropertyValue('--dice-face-four');
+					break;
+				case 5:
+					transform = styles.getPropertyValue('--dice-face-five');
+					break;
+				case 6:
+					transform = styles.getPropertyValue('--dice-face-six');
+					break;
+				default:
+					transform = null;
+			}
+
+			if (transform !== null) {
+				diceElement.style.transform = transform;
+				diceElement.style.transition = "all 0.1s ease-out";
+			}
+		}
+	}
 	useEffect(() => {
 
 		localStorage.setItem("userName", "1")
@@ -60,7 +104,7 @@ export default function Home() {
 
 		rotateDice()
 
-	}, [die])
+	}, [die, rotateDice])
 
 
 	useEffect(() => {
@@ -70,7 +114,7 @@ export default function Home() {
 		}
 
 		joinSession();
-	}, []);
+	}, [sessionID]);
 
 
 
@@ -163,51 +207,7 @@ export default function Home() {
 		});
 	}
 
-	const rotateDice = () => {
-		const styles: CSSStyleDeclaration = getComputedStyle(document.body);
 
-		// This section is only to make sure you select the whole dice
-		const diceElement = document.getElementsByClassName("dice")[0] as HTMLElement | null;
-
-		if (diceElement) {
-			diceElement.classList.toggle('random-rotation');
-			setTimeout(function () {
-				diceElement.classList.remove('random-rotation');
-			}, 1500);
-
-			// Targeted side
-			var facingSide = die;
-			var transform = null;
-
-			switch (facingSide) {
-				case 1:
-					transform = styles.getPropertyValue('--dice-face-one');
-					break;
-				case 2:
-					transform = styles.getPropertyValue('--dice-face-two');
-					break;
-				case 3:
-					transform = styles.getPropertyValue('--dice-face-three');
-					break;
-				case 4:
-					transform = styles.getPropertyValue('--dice-face-four');
-					break;
-				case 5:
-					transform = styles.getPropertyValue('--dice-face-five');
-					break;
-				case 6:
-					transform = styles.getPropertyValue('--dice-face-six');
-					break;
-				default:
-					transform = null;
-			}
-
-			if (transform !== null) {
-				diceElement.style.transform = transform;
-				diceElement.style.transition = "all 0.1s ease-out";
-			}
-		}
-	}
 
 	return (
 		<>
